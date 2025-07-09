@@ -1,0 +1,133 @@
+body {
+      overflow-x: hidden;
+      background: url('../images/background.jpg');
+        font-family: "Cormorant SC"!important;
+        background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    }
+
+#sidebar-wrapper {
+  color: white;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.page-account {display:flex;}
+
+@media (min-width: 992px) {
+
+  #sidebar-wrapper {
+    width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  #page-content-wrapper {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+  }
+  #sidebarToggle {
+    display: none;
+  }
+  #overlay {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    z-index: 1050;
+    transition: left 0.3s ease;
+  }
+  #sidebar-wrapper.active {
+    left: 0;
+  }
+  #page-content-wrapper {
+    margin-left: 0;
+  }
+  #sidebarToggle {
+    display: inline-block;
+  }
+  #overlay {
+    position: fixed;
+    display: none;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+
+    z-index: 1040;
+  }
+  #overlay.active {
+    display: block;
+  }
+
+.page-account {display:grid;}
+}
+
+
+
+#sidebar-logo {
+  padding: 1rem;
+  text-align: center;
+}
+#sidebar-logo img {
+  max-width: 80%;
+  height: auto;
+}
+
+nav.navbar {
+  justify-content: flex-end;}
+
+  .list-group-item {
+  background-color: transparent !important;
+  border: none; color: white;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.place-card {
+  display: flex;
+  flex-direction: column;
+  /* Висота h-100 з Bootstrap - зробимо щоб всі картки були однакові по висоті */
+  height: 100%;
+}
+
+.pagination-blur-bg {
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.pagination-blur-bg .page-link {
+  background-color: transparent !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.pagination-blur-bg .page-item.active .page-link {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+}
+
+.pagination-blur-bg .page-link:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+}
+
+.pagination-blur-bg .page-item.disabled .page-link {
+  color: rgba(255, 255, 255, 0.5) !important;
+  pointer-events: none;
+}
+

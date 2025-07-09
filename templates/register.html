@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Реєстрація користувача{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card p-4 shadow-sm"
+           style="background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border-radius: 0; color: white;">
+
+        <h3 class="text-center mb-4">Реєстрація користувача</h3>
+
+        <form method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+
+          <input type="text" name="full_name" placeholder="ПІБ" required
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="text" name="city" placeholder="Місто"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="text" name="phone" placeholder="Телефон"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="email" name="email" placeholder="Пошта"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="text" name="interests" placeholder="Інтереси"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="text" name="telegram" placeholder="Telegram username"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="text" name="social_media" placeholder="Соцмережі (через пробіл)"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <input type="text" name="telegram_chat_id" placeholder="Telegram chat_id"
+                 style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none;">
+
+          <div class="mt-2">
+            <label>Фото:</label><br>
+            <input type="file" name="photo" accept="image/*"
+                   style="color: white;">
+          </div>
+
+          <button type="submit"
+                  style="background-color: rgba(255, 255, 255, 0.1); color: white; border: none; padding: 10px; backdrop-filter: blur(5px);"
+                  class="mt-3">
+            Зареєструватися
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

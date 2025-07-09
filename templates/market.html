@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+  <form method="get" action="{{ url_for('market') }}" class="mb-4 d-flex justify-content-center gap-2">
+    <input type="text" name="name" placeholder="Назва" value="{{ request.args.get('name', '') }}"
+      style="border-radius: 0; width: 30%; background-color: transparent; border: none; border-bottom: 1px solid black; color: white; box-sizing: border-box; outline: none; margin-right: 10px;">
+
+    <input type="text" name="category" placeholder="Категорія" value="{{ request.args.get('category', '') }}"
+      style="border-radius: 0; width: 30%; background-color: transparent; border: none; border-bottom: 1px solid black; color: white; box-sizing: border-box; outline: none;">
+
+    <button type="submit" style="background-color: rgba(0, 0, 0, 0.1); backdrop-filter: blur(50px);" class="px-4">Пошук</button>
+  </form>
+
+  <div class="places-grid">
+    {% for place in places %}
+      <div class="place-card card h-100" style="background-color: rgba(0, 0, 0, 0.1); backdrop-filter: blur(8px); border-radius: 0;">
+  <div class="place-card card h-100 mx-auto" style="max-width: 600px; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border-radius: 0;">
+  <div class="card-body d-grid text-white">
+
+    <img src="{{ place.image }}" class="w-100" style="height: 250px; object-fit: cover;" alt="Фото місця">
+
+    <a style="text-decoration: none;" href="{{ place.website }}">
+      <h2 class="card-title text-white text-center">{{ place.name[:30] if place.name else "Без назви" }}</h2>
+    </a>
+
+    <div class="d-flex justify-content-between">
+      <b class="card-subtitle text-white">🔎 {{ place.category or "Без категорії" }}</b>
+      <b class="card-subtitle text-white">🏷️ {{ place.place_type }}</b>
+    </div>
+
+    {% if place.city or place.phone %}
+    <div class="d-flex justify-content-between">
+      <b class="card-text text-white">🏙️ {{ place.city or "Місто невідоме" }}</b>
+      <b class="card-text text-white">📞 {{ place.phone or "Немає телефону" }}</b>
+    </div>
+    {% endif %}
+
+    {% if place.rating %}
+      <b class="card-text text-white">⭐ Рейтинг: {{ place.rating }} ({{ place.num_reviews or 0 }} відгуків)</b>
+    {% endif %}
+
+    {% if place.full_address %}
+      <b class="card-text text-white">📍 {{ place.full_address }}</b>
+    {% endif %}
+
+  </div>
+</div>
+
+</div>
+
+    {% endfor %}
+  </div>
+  <nav aria-label="Page navigation example" class="mt-4 pagination-blur-bg">
+    <ul class="pagination justify-content-center">
+
+      <li class="page-item {% if page <= 1 %}disabled{% endif %}" >
+        <a class="page-link" href="{{ url_for('market', page=page-1) }}" aria-label="Previous" tabindex="{% if page <= 1 %}-1{% endif %}">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      {% set displayed_pages = [] %}
+      {% set last_page_shown = 0 %}
+
+      {% for p in range(1, total_pages + 1) %}
+        {% if p <= 2 or p > total_pages - 2 or (p >= page - 1 and p <= page + 1) %}
+          {% if last_page_shown and p - last_page_shown > 1 %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+          {% endif %}
+          <li class="page-item {% if p == page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('market', page=p) }}">{{ p }}</a>
+          </li>
+          {% set last_page_shown = p %}
+        {% endif %}
+      {% endfor %}
+
+      <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
+        <a class="page-link" href="{{ url_for('market', page=page+1) }}" aria-label="Next" tabindex="{% if page >= total_pages %}-1{% endif %}">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+
+
+</div>
+
+
+{% endblock %}

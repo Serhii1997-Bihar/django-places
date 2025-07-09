@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Мій Профіль{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+
+      <div class="card shadow" style="background-color: rgba(0,0,0,0.1); backdrop-filter: blur(8px); border-radius: 1rem;">
+        <div class="row g-0">
+
+          <!-- Фото -->
+          <div class="col-md-4 d-flex align-items-center justify-content-center p-4">
+            {% if user.photo %}
+              <img src="{{ url_for('static', filename=user.photo.replace('static\\', '').replace('\\', '/') ) }}"
+                   alt="Фото користувача"
+                   class="img-fluid rounded"
+                   style="max-height: 250px; object-fit: cover;">
+            {% else %}
+              <img src="{{ url_for('static', filename='images/default_user.png') }}"
+                   alt="Фото користувача"
+                   class="img-fluid rounded"
+                   style="max-height: 250px; object-fit: cover;">
+            {% endif %}
+          </div>
+
+          <!-- Інформація -->
+          <div class="col-md-8">
+            <div class="card-body p-4">
+              <h2 class="card-title text-center text-white mb-4">{{ user.full_name }}</h2>
+
+              <ul class="list-group list-group-flush text-white">
+                <li class="list-group-item bg-transparent"><strong>Місто:</strong> {{ user.city or '—' }}</li>
+                <li class="list-group-item bg-transparent"><strong>Телефон:</strong> {{ user.phone or '—' }}</li>
+                <li class="list-group-item bg-transparent"><strong>Пошта:</strong> {{ user.email or '—' }}</li>
+                <li class="list-group-item bg-transparent"><strong>Інтереси:</strong> {{ user.interests or '—' }}</li>
+                <li class="list-group-item bg-transparent"><strong>Телеграм:</strong> {{ user.telegram or '—' }}</li>
+                <li class="list-group-item bg-transparent">
+                  <strong>Соцмережі:</strong>
+                  {% if user.social_media %}
+                    {% for link in user.social_media %}
+                      <span class="badge bg-secondary me-1">{{ link }}</span>
+                    {% endfor %}
+                  {% else %}
+                    Немає
+                  {% endif %}
+                </li>
+                <li class="list-group-item bg-transparent"><strong>Telegram chat_id:</strong> {{ user.telegram_chat_id or '—' }}</li>
+              </ul>
+
+              <div class="text-end mt-3">
+                <a href="#" class="btn btn-primary me-2">Редагувати</a>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Вийти</a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
